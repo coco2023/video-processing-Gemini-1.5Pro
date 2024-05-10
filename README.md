@@ -1,5 +1,11 @@
 1. https://zhuanlan.zhihu.com/p/668870862
-
+2. https://baijiahao.baidu.com/s?id=1739389078675907136&wfr=spider&for=pc
+3. https://baijiahao.baidu.com/s?id=1751431327666832437&wfr=spider&for=
+4. https://www.jianshu.com/p/9b9438dff7a2?ivk_sa=1024320u
+5. https://www.xiaolincoding.com/network/1_base/what_happen_url.html#%E7%9C%9F%E5%AE%9E%E5%9C%B0%E5%9D%80%E6%9F%A5%E8%AF%A2-dns 键入网址到网页显示，期间发生了什么？
+6. https://blog.csdn.net/2301_76524931/article/details/133846107
+7. https://www.youtube.com/watch?v=M19XC0zJUrA
+8. https://github.com/Java-Techie-jt
 
 # 更加专业且技术含量较高地实现通过编写代码下载YouTube播放列表的视频:配合网络抓包
 如果你希望更加专业且技术含量较高地实现通过编写代码下载YouTube播放列表的视频，配合网络抓包确实是一种可行的方法。使用网络抓包可以帮助你理解YouTube页面如何加载和请求视频数据，从而更准确地模拟这些请求以编程方式下载视频。这里提供一些步骤和建议，以帮助你实现这一过程：
