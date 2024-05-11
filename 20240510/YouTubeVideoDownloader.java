@@ -23,9 +23,11 @@ public class YouTubeVideoDownloader {
         }
     }
 
+    // compile: javac YouTubeVideoDownloader.java
+    // run: java YouTubeVideoDownloader "https://www.youtube.com/watch?v=RePqojqhR2k"  
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Usage: java YouTubeVideoDownloader https://www.youtube.com/watch?v=QQF0f9wfyhA");
+            System.out.println("Usage: java https://www.youtube.com/watch?v=RePqojqhR2k");
             System.exit(1);
         }
         downloadVideo(args[0]);
