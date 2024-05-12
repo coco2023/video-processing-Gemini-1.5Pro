@@ -60,7 +60,7 @@ public class YouTubePlaylistScraper {
             if (!directory.exists()) {
                 directory.mkdirs(); // Make the directory if it doesn't exist
             }
-            mapper.writeValue(new File(directory, "videoLinks.json"), videoLinks);
+            mapper.writeValue(new File(directory, "videoLinks4.json"), videoLinks);
             System.out.println("JSON file has been written successfully");
             
         } catch (InterruptedException e) {

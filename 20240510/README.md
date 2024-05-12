@@ -20,9 +20,11 @@ this:
 <ytd-thumbnail id="thumbnail" class="style-scope ytd-playlist-video-renderer" hide-playback-status="" size="medium" loaded="">
     <a id="thumbnail" class="yt-simple-endpoint inline-block style-scope ytd-thumbnail" aria-hidden="true" tabindex="-1" rel="null" href="/watch?v=RePqojqhR2k&amp;list=PL159CD41EB36CFE86&amp;index=1&amp;pp=iAQB">
 
+<a id="wc-endpoint" class="yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer" href="/watch?v=SC2wYdZjh1E&amp;list=PL159CD41EB36CFE86&amp;index=92&amp;pp=iAQB">
+    <a id="thumbnail" class="yt-simple-endpoint inline-block style-scope ytd-thumbnail" aria-hidden="true" tabindex="-1" rel="null" href="/watch?v=SC2wYdZjh1E&amp;list=PL159CD41EB36CFE86&amp;index=92&amp;pp=iAQB">
+
 or:
 <div id="meta" class="style-scope ytd-playlist-video-renderer">
-      <h3 class="style-scope ytd-playlist-video-renderer" aria-label="FOMC Introductory Statement, May 1, 2024 by Federal Reserve 8,128 views 10 days ago 7 minutes, 39 seconds">
         <a id="video-title" class="yt-simple-endpoint style-scope ytd-playlist-video-renderer" href="/watch?v=RePqojqhR2k&amp;list=PL159CD41EB36CFE86&amp;index=1&amp;pp=iAQB" title="FOMC Introductory Statement, May 1, 2024">
 
 ```
