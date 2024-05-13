@@ -19,68 +19,98 @@ import org.openqa.selenium.JavascriptExecutor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class YouTubePlaylistScraper {
     public static void main(String[] args) throws InterruptedException {
-        
-          String playListName = "FOMC Press Conferences";   // Speeches  // FOMC Press Conferences
-          String playListLink = "https://www.youtube.com/playlist?list=PL159CD41EB36CFE86";   // https://www.youtube.com/playlist?list=PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f  // https://www.youtube.com/playlist?list=PL159CD41EB36CFE86
 
-          System.setProperty("webdriver.chrome.driver", "D:\\Application\\WorkApp\\ChromeDriver\\chromedriver-win64\\chromedriver.exe");
+        String playListName = "Speeches"; // Speeches // FOMC Press Conferences
+        String playListLink = "https://www.youtube.com/playlist?list=PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f"; // https://www.youtube.com/playlist?list=PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f // https://www.youtube.com/playlist?list=PL159CD41EB36CFE86
 
-          ChromeOptions options = new ChromeOptions();
-          options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200");
-          WebDriver driver = new ChromeDriver(options);
-  
-          try {
-                    driver.get(playListLink);
-                    WebDriverWait wait = new WebDriverWait(driver, 50);
-                    JavascriptExecutor js = (JavascriptExecutor) driver;
+        System.setProperty("webdriver.chrome.driver",
+                "D:\\Application\\WorkApp\\ChromeDriver\\chromedriver-win64\\chromedriver.exe");
 
-                    // Implement more effective scrolling to ensure all elements are loaded
-                    int oldSize = 0;
-                    List<WebElement> elements;
-                    do {
-                              js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-                              // Wait for elements to become visible after scroll
-                              wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a#video-title")));
-                              elements = driver.findElements(By.cssSelector("a#video-title"));
-                              if (elements.size() == oldSize) {
-                                        System.out.println("no further elements");
-                                        break;
-                              }
-                              oldSize = elements.size();
-                              Thread.sleep(2000);  // Short pause to allow DOM to update
-                    } while (true);
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200");
+        WebDriver driver = new ChromeDriver(options);
 
-                    // Process the links: save into hashmap
-                    HashMap<String, String> videoLinks = new HashMap<>();
-                    for (WebElement element : elements) {
-                              String videoUrl = element.getAttribute("href");
-                              String videoTitle = element.getAttribute("title");
-                              videoLinks.put(videoUrl, videoTitle);
-                    }
-    
-                    // // Print results
-                    // videoLinks.forEach((url, title) -> System.out.println("URL: " + url + ", Title: " + title));
-                    System.out.println("Total number of unique URLs collected: " + videoLinks.size());
+        try {
+            driver.get(playListLink);
+            WebDriverWait wait = new WebDriverWait(driver, 50);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
 
-                    // Define a date formatter
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-                    String formattedDate = LocalDateTime.now().format(dtf);
+            // Implement more effective scrolling to ensure all elements are loaded
+            int oldSize = 0;
+            List<WebElement> elements;
+            do {
+                js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+                // Wait for elements to become visible after scroll
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a#video-title")));
+                elements = driver.findElements(By.cssSelector("a#video-title"));
+                if (elements.size() == oldSize) {
+                    System.out.println("no further elements");
+                    break;
+                }
+                oldSize = elements.size();
+                Thread.sleep(2000); // Short pause to allow DOM to update
+            } while (true);
 
-                    // Serialize HashMap to JSON file
-                    ObjectMapper mapper = new ObjectMapper();
-                    File directory = new File("outputs");
-                    if (!directory.exists()) {
-                              directory.mkdirs();
-                    }
-                    mapper.writeValue(new File(directory, formattedDate  + "_" + playListName + "_videoLinks.json"), videoLinks);
-                    System.out.println("JSON file has been written successfully");
+            // Process the links: save into hashmap
+            HashMap<String, String> videoLinks = new HashMap<>();
+            int videoCount = 0;
+
+            // extract playlistId
+            String playlistId = extractPlayListId(playListLink);
+
+            for (WebElement element : elements) {
+                String videoUrl = element.getAttribute("href");
+                String videoTitle = element.getAttribute("title");
+
+                // extract videoId
+                String videoId = extractVideoId(videoUrl);
+
+                videoLinks.put(videoId + "|" + videoCount + "|" + playlistId, videoUrl);
+                videoCount++;
+            }
+
+            // Print results
+            System.out.println("Total number of unique URLs collected: " + videoLinks.size());
+
+            // Define a date formatter
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            String formattedDate = LocalDateTime.now().format(dtf);
+
+            // Serialize HashMap to JSON file
+            ObjectMapper mapper = new ObjectMapper();
+            File directory = new File("outputs");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            mapper.writeValue(new File(directory, formattedDate + "_" + playListName + "_videoLinks.json"), videoLinks);
+            System.out.println("JSON file has been written successfully");
 
         } catch (Exception e) {
-                    e.printStackTrace();
+            e.printStackTrace();
         } finally {
-                    driver.quit();
+            driver.quit();
         }
+    }
+
+    private static String extractPlayListId(String url) {
+        return extractByRegex(url, "list=([^&]*)");
+    }
+
+    private static String extractVideoId(String url) {
+        return extractByRegex(url, "v=([^&]*)");
+    }
+
+    private static String extractByRegex(String url, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(url);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
     }
 }
