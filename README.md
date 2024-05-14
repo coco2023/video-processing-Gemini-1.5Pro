@@ -1402,3 +1402,259 @@ While the wrapper class approach is common and beneficial, there are some consid
 Yes, this method is common but typically found more in simpler applications or batch jobs. In enterprise settings, especially where workflows are complex or need higher degrees of flexibility and scalability, more robust solutions like workflow engines (e.g., Apache Airflow, Camunda) or orchestration services (e.g., Kubernetes Jobs, AWS Step Functions) might be used. These tools offer more features like conditional execution, retries, logging, monitoring, and rollback capabilities.
 
 In conclusion, the wrapper class approach is a valid and effective method for many use cases, particularly when simplicity and clarity are paramount. As needs grow more complex, however, more specialized tools might be necessary to efficiently manage workflows.
+
+# Call OpenAI api
+To solve the `insufficient_quota` error when using the OpenAI API, you can take several steps:
+
+1. **Check Your OpenAI Account**:
+   - **Quota**: Verify if you have reached your quota limit for the API. This can be done by logging into your OpenAI account and checking your usage and quota.
+   - **Subscription**: Ensure you have an active subscription plan that supports the required API usage. Consider upgrading your plan if needed.
+
+2. **Request Quota Increase**:
+   - If you frequently hit your quota limits, you can request a quota increase from OpenAI. You can contact OpenAI support or use the contact form provided in your OpenAI account dashboard.
+
+3. **Optimize API Usage**:
+   - **Batch Processing**: Instead of making multiple small requests, batch your data and send it in fewer, larger requests if the API supports it.
+   - **Caching**: Cache results where possible to reduce repeated requests for the same data.
+   - **Rate Limiting**: Implement rate limiting in your application to avoid hitting the API too frequently.
+
+4. **Use Alternatives**:
+   - If you are unable to resolve the quota issue with OpenAI, consider using alternative speech-to-text services as previously mentioned, such as Google Cloud Speech-to-Text or AWS Transcribe.
+
+### Example Steps to Resolve Quota Issue
+
+#### Step 1: Check Your OpenAI Account
+
+Log in to your OpenAI account dashboard and check your usage and quota. If you are close to or have exceeded your quota, you will need to take action as described below.
+
+#### Step 2: Request a Quota Increase
+
+1. **Contact OpenAI Support**: Use the support contact form available in your OpenAI account dashboard.
+2. **Describe Your Use Case**: Provide details about your use case and why you need a quota increase. This can help OpenAI understand your needs and potentially approve your request faster.
+
+#### Step 3: Optimize API Usage
+
+- **Batch Processing**: If the API supports it, batch your requests to minimize the number of API calls. For example, if you are processing multiple audio files, try to send them in a single request if possible.
+
+- **Implement Caching**: Use caching to store the results of previous API calls and avoid making unnecessary repeated requests. Here’s a simple example using a `HashMap` in Java to cache results:
+
+  ```java
+  import java.util.HashMap;
+  import java.util.Map;
+
+  public class APICache {
+      private Map<String, String> cache = new HashMap<>();
+
+      public void put(String key, String value) {
+          cache.put(key, value);
+      }
+
+      public String get(String key) {
+          return cache.get(key);
+      }
+
+      public boolean containsKey(String key) {
+          return cache.containsKey(key);
+      }
+  }
+  ```
+
+- **Rate Limiting**: Implement rate limiting to ensure you don’t exceed your quota. Here’s an example of a simple rate limiter in Java:
+
+  ```java
+  public class RateLimiter {
+      private final int maxRequests;
+      private final long timeWindow;
+      private int requestCount;
+      private long startTime;
+
+      public RateLimiter(int maxRequests, long timeWindow) {
+          this.maxRequests = maxRequests;
+          this.timeWindow = timeWindow;
+          this.requestCount = 0;
+          this.startTime = System.currentTimeMillis();
+      }
+
+      public synchronized boolean allowRequest() {
+          long currentTime = System.currentTimeMillis();
+          if (currentTime - startTime > timeWindow) {
+              requestCount = 0;
+              startTime = currentTime;
+          }
+          if (requestCount < maxRequests) {
+              requestCount++;
+              return true;
+          }
+          return false;
+      }
+  }
+  ```
+
+### Example Usage of Rate Limiter
+
+```java
+RateLimiter rateLimiter = new RateLimiter(10, 60000); // 10 requests per minute
+
+if (rateLimiter.allowRequest()) {
+    // Make API request
+} else {
+    // Handle rate limit exceeded
+}
+```
+
+By following these steps, you can address the `insufficient_quota` error with the OpenAI API. If these steps are not sufficient, consider exploring alternative speech-to-text services that might better suit your usage requirements.
+
+# Speech-To-Text
+If you encounter an `insufficient_quota` error with the OpenAI API, you have several alternatives for transcribing audio and extracting timestamps. Some options include using other speech-to-text services like Google Cloud Speech-to-Text, AWS Transcribe, or open-source libraries like Mozilla's DeepSpeech. Below, I'll demonstrate how to use Google Cloud Speech-to-Text for this task.
+
+### Using Google Cloud Speech-to-Text
+
+To use Google Cloud Speech-to-Text, you'll need to set up a Google Cloud project and enable the Speech-to-Text API. Here are the steps:
+
+1. **Set Up Google Cloud Project**:
+    - Go to the [Google Cloud Console](https://console.cloud.google.com/).
+    - Create a new project.
+    - Enable the Speech-to-Text API.
+    - Create a service account and download the JSON key file.
+
+2. **Add Google Cloud Client Library to Your Project**:
+    - Add the `google-cloud-speech` dependency to your `pom.xml`.
+
+3. **Update Your Java Code**:
+    - Use the Google Cloud Speech-to-Text client to transcribe the audio file.
+    - Parse the response to extract sentences and their timestamps.
+    - Store the results in a `HashMap` and save them to a JSON file.
+
+### Step 2: Add Dependency in `pom.xml`
+
+Add the following dependency to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-speech</artifactId>
+    <version>2.3.1</version>
+</dependency>
+<dependency>
+    <groupId>com.google.auth</groupId>
+    <artifactId>google-auth-library-oauth2-http</artifactId>
+    <version>1.2.1</version>
+</dependency>
+```
+
+### Step 3: Update Java Code to Use Google Cloud Speech-to-Text
+
+Here is the updated Java code:
+
+#### TranscriptionService.java
+
+```java
+import com.google.cloud.speech.v1.RecognitionAudio;
+import com.google.cloud.speech.v1.RecognitionConfig;
+import com.google.cloud.speech.v1.RecognizeResponse;
+import com.google.cloud.speech.v1.SpeechClient;
+import com.google.cloud.speech.v1.SpeechRecognitionAlternative;
+import com.google.cloud.speech.v1.SpeechRecognitionResult;
+import com.google.protobuf.ByteString;
+import io.github.cdimascio.dotenv.Dotenv;
+import org.json.JSONObject;
+
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TranscriptionService {
+    public static void main(String[] args) {
+        String filePath = "path_to_your_mp4_file.mp4";
+        String outputFilePath = "captions.json";
+        try {
+            Map<String, String> captions = getCaptionsWithTimestamps(filePath);
+            saveCaptionsToJsonFile(captions, outputFilePath);
+            captions.forEach((timestamp, caption) -> {
+                System.out.println("[" + timestamp + "] " + caption);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Map<String, String> getCaptionsWithTimestamps(String filePath) throws Exception {
+        Map<String, String> captions = new HashMap<>();
+
+        try (SpeechClient speechClient = SpeechClient.create()) {
+            ByteString audioBytes = ByteString.readFrom(new FileInputStream(filePath));
+
+            RecognitionConfig config = RecognitionConfig.newBuilder()
+                    .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
+                    .setSampleRateHertz(16000)
+                    .setLanguageCode("en-US")
+                    .enableWordTimeOffsets(true)
+                    .build();
+
+            RecognitionAudio audio = RecognitionAudio.newBuilder()
+                    .setContent(audioBytes)
+                    .build();
+
+            RecognizeResponse response = speechClient.recognize(config, audio);
+            List<SpeechRecognitionResult> results = response.getResultsList();
+
+            for (SpeechRecognitionResult result : results) {
+                for (SpeechRecognitionAlternative alternative : result.getAlternativesList()) {
+                    for (com.google.cloud.speech.v1.WordInfo wordInfo : alternative.getWordsList()) {
+                        double start = wordInfo.getStartTime().getSeconds()
+                                + wordInfo.getStartTime().getNanos() / 1e9;
+                        String text = wordInfo.getWord();
+
+                        String timestamp = String.format("%02d:%02d:%02d",
+                                (int) (start / 3600),
+                                (int) (start % 3600) / 60,
+                                (int) (start % 60));
+
+                        captions.put(timestamp, text);
+                    }
+                }
+            }
+        }
+
+        return captions;
+    }
+
+    private static void saveCaptionsToJsonFile(Map<String, String> captions, String filePath) throws IOException {
+        JSONObject jsonObject = new JSONObject(captions);
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            fileWriter.write(jsonObject.toString(4));  // Indent with 4 spaces for readability
+        }
+    }
+}
+```
+
+### Explanation
+
+1. **Google Cloud Client Library**:
+    - The `SpeechClient` class is used to interact with the Google Cloud Speech-to-Text API.
+
+2. **Reading the Audio File**:
+    - The audio file is read using `ByteString.readFrom(new FileInputStream(filePath))`.
+
+3. **Configuring the Request**:
+    - The `RecognitionConfig` is set up with parameters like audio encoding, sample rate, language code, and word time offsets.
+
+4. **Sending the Request and Parsing the Response**:
+    - The audio is sent for transcription using `speechClient.recognize(config, audio)`.
+    - The response is parsed to extract words and their start times, storing them in a `HashMap`.
+
+5. **Saving Captions to JSON File**:
+    - The captions are saved to a JSON file with proper indentation for readability.
+
+### Setting Up Google Cloud Credentials
+
+Ensure you set up your Google Cloud credentials by exporting the path to your service account key file:
+
+```sh
+export GOOGLE_APPLICATION_CREDENTIALS="path_to_your_service_account_key.json"
+```
+
+By following this approach, you can use Google Cloud Speech-to-Text as an alternative to OpenAI's Whisper model for transcribing audio and extracting timestamps.
