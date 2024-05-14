@@ -1,3 +1,4 @@
 target/
 bin/
 outputs/videos/
+.env
