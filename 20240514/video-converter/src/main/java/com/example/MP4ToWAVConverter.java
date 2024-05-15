@@ -69,7 +69,7 @@ public class MP4ToWAVConverter {
             recorder.setSampleRate(grabber.getSampleRate());
             recorder.setAudioCodec(avcodec.AV_CODEC_ID_PCM_S16LE);
             recorder.setAudioBitrate(grabber.getAudioBitrate());
-            recorder.setAudioChannels(grabber.getAudioChannels());
+            recorder.setAudioChannels(1);  // Ensure output is mono
             recorder.start();
             System.out.println("Recorder started");
 
