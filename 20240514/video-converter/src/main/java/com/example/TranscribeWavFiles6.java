@@ -12,16 +12,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class TranscribeWavFiles4 {
+public class TranscribeWavFiles6 {
 
-    /** Demonstrates using the Speech API to transcribe an audio file. */
-    public static void main(String... args) throws Exception {
-        String jsonPath = "outputs/woven-sequence-422021-4dd531c27e17.json";
-        String gcsUri = "gs://video1-20240502/1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0.wav";
-        String outputJsonPath = "transcriptions.json";
+    public static void main(String[] args) throws Exception {
+          String jsonPath = "outputs/woven-sequence-422021-4dd531c27e17.json";
+          String gcsUriPrefix = "gs://video1-20240502/";
+
+        // Replace with the list of your segment file names
+        String[] segmentFiles = {
+            "1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0.wav",
+            // Add more segments as needed
+        };
 
         try (SpeechClient speechClient = initializeSpeechClient(jsonPath)) {
-            transcribeAudio(speechClient, gcsUri, outputJsonPath);
+            for (String segmentFile : segmentFiles) {
+                String gcsUri = gcsUriPrefix + segmentFile;
+                String outputJsonPath = "transcribe/" + "transcribes#" + segmentFile.replace(".wav", ".json");
+                transcribeAudio(speechClient, gcsUri, outputJsonPath);
+            }
         }
     }
 
@@ -40,8 +48,8 @@ public class TranscribeWavFiles4 {
 
     public static void transcribeAudio(SpeechClient speechClient, String gcsUri, String outputJsonPath) throws IOException {
         RecognitionConfig config = RecognitionConfig.newBuilder()
-                .setEncoding(AudioEncoding.LINEAR16) 
-                .setSampleRateHertz(44100)  // Updated sample rate to match the WAV file 16000
+                .setEncoding(AudioEncoding.LINEAR16)
+                .setSampleRateHertz(44100)  // Ensure this matches the sample rate of the audio file
                 .setLanguageCode("en-US")
                 .build();
         RecognitionAudio audio = RecognitionAudio.newBuilder().setUri(gcsUri).build();
@@ -50,20 +58,20 @@ public class TranscribeWavFiles4 {
         List<SpeechRecognitionResult> results = response.getResultsList();
 
         JsonArray transcriptsArray = new JsonArray();
-        System.out.println("this is the result: " + results);
 
         for (SpeechRecognitionResult result : results) {
             for (SpeechRecognitionAlternative alternative : result.getAlternativesList()) {
-                // System.out.printf("Transcription: %s%n", alternative.getTranscript());
-
-                JsonObject transcriptObject = new JsonObject();
-                transcriptObject.addProperty("transcript", alternative.getTranscript());
-                transcriptsArray.add(transcriptObject);
+                String[] sentences = alternative.getTranscript().split("\\. ");
+                for (String sentence : sentences) {
+                    JsonObject transcriptObject = new JsonObject();
+                    transcriptObject.addProperty("transcript", sentence.trim() + ".");
+                    transcriptsArray.add(transcriptObject);
+                }
             }
         }
 
         // Write transcripts to a JSON file
-        writeTranscriptsToJsonFile("transcription.json", transcriptsArray);
+        writeTranscriptsToJsonFile(outputJsonPath, transcriptsArray);
     }
 
     private static void writeTranscriptsToJsonFile(String fileName, JsonArray transcriptsArray) {

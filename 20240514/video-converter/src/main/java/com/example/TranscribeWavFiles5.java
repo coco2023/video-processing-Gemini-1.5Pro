@@ -6,22 +6,21 @@ import com.google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.api.gax.longrunning.OperationFuture;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class TranscribeWavFiles4 {
+public class TranscribeWavFiles5 {
 
-    /** Demonstrates using the Speech API to transcribe an audio file. */
-    public static void main(String... args) throws Exception {
-        String jsonPath = "outputs/woven-sequence-422021-4dd531c27e17.json";
-        String gcsUri = "gs://video1-20240502/1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0.wav";
-        String outputJsonPath = "transcriptions.json";
+    public static void main(String[] args) throws Exception {
+          String jsonPath = "outputs/woven-sequence-422021-4dd531c27e17.json";
+          String gcsUri = "gs://video1-20240502/1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0.wav";
 
         try (SpeechClient speechClient = initializeSpeechClient(jsonPath)) {
-            transcribeAudio(speechClient, gcsUri, outputJsonPath);
+            transcribeAudio(speechClient, gcsUri);
         }
     }
 
@@ -38,27 +37,34 @@ public class TranscribeWavFiles4 {
         return SpeechClient.create(settings);
     }
 
-    public static void transcribeAudio(SpeechClient speechClient, String gcsUri, String outputJsonPath) throws IOException {
+    public static void transcribeAudio(SpeechClient speechClient, String gcsUri) throws Exception {
         RecognitionConfig config = RecognitionConfig.newBuilder()
-                .setEncoding(AudioEncoding.LINEAR16) 
-                .setSampleRateHertz(44100)  // Updated sample rate to match the WAV file 16000
+                .setEncoding(AudioEncoding.LINEAR16)
+                .setSampleRateHertz(44100)  // Ensure this matches the sample rate of the audio file
                 .setLanguageCode("en-US")
                 .build();
         RecognitionAudio audio = RecognitionAudio.newBuilder().setUri(gcsUri).build();
 
-        RecognizeResponse response = speechClient.recognize(config, audio);
-        List<SpeechRecognitionResult> results = response.getResultsList();
+        LongRunningRecognizeRequest request = LongRunningRecognizeRequest.newBuilder()
+                .setConfig(config)
+                .setAudio(audio)
+                .build();
+
+        OperationFuture<LongRunningRecognizeResponse, LongRunningRecognizeMetadata> future =
+                speechClient.longRunningRecognizeOperationCallable().futureCall(request);
+
+        LongRunningRecognizeResponse response = future.get(1, TimeUnit.HOURS);  // Adjust timeout as necessary
 
         JsonArray transcriptsArray = new JsonArray();
-        System.out.println("this is the result: " + results);
 
-        for (SpeechRecognitionResult result : results) {
+        for (SpeechRecognitionResult result : response.getResultsList()) {
             for (SpeechRecognitionAlternative alternative : result.getAlternativesList()) {
-                // System.out.printf("Transcription: %s%n", alternative.getTranscript());
-
-                JsonObject transcriptObject = new JsonObject();
-                transcriptObject.addProperty("transcript", alternative.getTranscript());
-                transcriptsArray.add(transcriptObject);
+                String[] sentences = alternative.getTranscript().split("\\. ");
+                for (String sentence : sentences) {
+                    JsonObject transcriptObject = new JsonObject();
+                    transcriptObject.addProperty("transcript", sentence.trim() + ".");
+                    transcriptsArray.add(transcriptObject);
+                }
             }
         }
 

@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 public class UploadToGCS {
     public static void main(String[] args) {
         String bucketName = "video1-20240502"; // your-bucket-name
-        String folderPath = "outputs/videos/wav/";
+        String folderPath = "outputs/videos/split";
         String jsonPath = "outputs/woven-sequence-422021-4dd531c27e17.json";
 
         File folder = new File(folderPath);
