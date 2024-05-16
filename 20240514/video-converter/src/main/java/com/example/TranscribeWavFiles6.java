@@ -27,7 +27,7 @@ public class TranscribeWavFiles6 {
         try (SpeechClient speechClient = initializeSpeechClient(jsonPath)) {
             for (String segmentFile : segmentFiles) {
                 String gcsUri = gcsUriPrefix + segmentFile;
-                String outputJsonPath = "transcribe/" + "transcribes#" + segmentFile.replace(".wav", ".json");
+                String outputJsonPath = "transcribe/" + "transcribes2#" + segmentFile.replace(".wav", ".json");
                 transcribeAudio(speechClient, gcsUri, outputJsonPath);
             }
         }
