@@ -27,10 +27,10 @@ public class TranscribeWavFiles7 {
 
         try (SpeechClient speechClient = initializeSpeechClient(jsonPath)) {
           List<String> segmentFiles = listSegmentFiles(bucketName, jsonPath);
-            for (String segmentFile : segmentFiles) {
-                    String gcsUri = "gs://" + bucketName + "/" + segmentFile;
-                String outputJsonPath = "transcribe/" + "transcribes#" + segmentFile.replace(".wav", ".json");
-                transcribeAudio(speechClient, gcsUri, outputJsonPath);
+            for (String segmentFileName : segmentFiles) {
+                    String gcsUri = "gs://" + bucketName + "/" + segmentFileName + ".wav";
+                String outputJsonPath = "transcribe/" + "transcribes#" + segmentFileName + ".json";
+                transcribeAudio(speechClient, gcsUri, outputJsonPath, segmentFileName);
             }
         }
     }
@@ -48,7 +48,7 @@ public class TranscribeWavFiles7 {
           for (Blob blob : bucket.list().iterateAll()) {
               String name = blob.getName();
               if (name.endsWith(".wav")) {
-                  segmentFiles.add(name);
+                  segmentFiles.add(name.replace(".wav", ""));
               }
           }
           return segmentFiles;
@@ -67,7 +67,7 @@ public class TranscribeWavFiles7 {
         return SpeechClient.create(settings);
     }
 
-    public static void transcribeAudio(SpeechClient speechClient, String gcsUri, String outputJsonPath) throws IOException {
+    public static void transcribeAudio(SpeechClient speechClient, String gcsUri, String outputJsonPath, String segmentFileName) throws IOException {
           RecognitionConfig config = RecognitionConfig.newBuilder()
           .setEncoding(AudioEncoding.LINEAR16)
           .setSampleRateHertz(44100)  // Ensure this matches the sample rate of the audio file
@@ -100,7 +100,7 @@ public class TranscribeWavFiles7 {
                     // Check if the word ends with a period or if it's the last word
                     if (wordInfo.getWord().endsWith(".") || i == words.size() - 1) {
                         JsonObject transcriptObject = new JsonObject();
-                        String sentenceTimestamp = formatTimestamp(startTime) + " - " + formatTimestamp(endTime);
+                        String sentenceTimestamp = segmentFileName + "#" + formatTimestamp(startTime) + "#" + formatTimestamp(endTime);
                         String sentenceString = sentence.toString().trim();
                     //     transcriptObject.addProperty("timestamp", formatTimestamp(startTime) + " - " + formatTimestamp(endTime));
                     //     transcriptObject.addProperty("sentence", sentence.toString().trim());
