@@ -3,6 +3,10 @@ package com.example;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.speech.v1.*;
 import com.google.cloud.speech.v1.RecognitionConfig.AudioEncoding;
+import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -11,6 +15,7 @@ import com.google.protobuf.Duration;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TranscribeWavFiles7 {
@@ -18,21 +23,36 @@ public class TranscribeWavFiles7 {
     public static void main(String[] args) throws Exception {
           String jsonPath = "outputs/woven-sequence-422021-4dd531c27e17.json";
           String gcsUriPrefix = "gs://video1-20240502/";
-
-        // Replace with the list of your segment file names
-        String[] segmentFiles = {
-          "1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0.wav",
-          // Add more segments as needed
-      };
+          String bucketName = "video1-20240502";
 
         try (SpeechClient speechClient = initializeSpeechClient(jsonPath)) {
+          List<String> segmentFiles = listSegmentFiles(bucketName, jsonPath);
             for (String segmentFile : segmentFiles) {
-                String gcsUri = gcsUriPrefix + segmentFile;
+                    String gcsUri = "gs://" + bucketName + "/" + segmentFile;
                 String outputJsonPath = "transcribe/" + "transcribes#" + segmentFile.replace(".wav", ".json");
                 transcribeAudio(speechClient, gcsUri, outputJsonPath);
             }
         }
     }
+
+    public static List<String> listSegmentFiles(String bucketName, String jsonPath) throws IOException {
+          GoogleCredentials credentials;
+          try (FileInputStream serviceAccountStream = new FileInputStream(jsonPath)) {
+              credentials = GoogleCredentials.fromStream(serviceAccountStream);
+          }
+  
+          Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+          Bucket bucket = storage.get(bucketName);
+  
+          List<String> segmentFiles = new ArrayList<>();
+          for (Blob blob : bucket.list().iterateAll()) {
+              String name = blob.getName();
+              if (name.endsWith(".wav")) {
+                  segmentFiles.add(name);
+              }
+          }
+          return segmentFiles;
+      }
 
     public static SpeechClient initializeSpeechClient(String jsonPath) throws IOException {
         GoogleCredentials credentials;
@@ -63,7 +83,6 @@ public class TranscribeWavFiles7 {
 
         for (SpeechRecognitionResult result : results) {
             for (SpeechRecognitionAlternative alternative : result.getAlternativesList()) {
-          //       String transcript = alternative.getTranscript();
                 List<WordInfo> words = alternative.getWordsList();
 
                 // Group words into sentences based on timestamps
