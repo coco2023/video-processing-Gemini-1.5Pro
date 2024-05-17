@@ -1,3 +1,7 @@
+# Practice
+20240516: https://github.com/coco2023/videos-processing/tree/main/20240516
+Gemini Train prac: https://github.com/coco2023/videos-processing/blob/main/train.ipynb
+
 1. https://zhuanlan.zhihu.com/p/668870862
 2. https://baijiahao.baidu.com/s?id=1739389078675907136&wfr=spider&for=pc
 3. https://baijiahao.baidu.com/s?id=1751431327666832437&wfr=spider&for=
@@ -7,7 +11,7 @@
 7. https://www.youtube.com/watch?v=M19XC0zJUrA
 8. https://github.com/Java-Techie-jt
 
-# 更加专业且技术含量较高地实现通过编写代码下载YouTube播放列表的视频:配合网络抓包
+# 更加专业且地实现通过编写代码下载YouTube播放列表的视频:配合网络抓包
 如果你希望更加专业且技术含量较高地实现通过编写代码下载YouTube播放列表的视频，配合网络抓包确实是一种可行的方法。使用网络抓包可以帮助你理解YouTube页面如何加载和请求视频数据，从而更准确地模拟这些请求以编程方式下载视频。这里提供一些步骤和建议，以帮助你实现这一过程：
 
 ### 1. 使用网络抓包工具
@@ -1658,3 +1662,52 @@ export GOOGLE_APPLICATION_CREDENTIALS="path_to_your_service_account_key.json"
 ```
 
 By following this approach, you can use Google Cloud Speech-to-Text as an alternative to OpenAI's Whisper model for transcribing audio and extracting timestamps.
+
+# Git Command
+To remove the commits `7c07c6736d5bf60c81ed44654d42ffc0439f7240` and `3a7c60d5abc7e657c048bbafec27150f2ac034c4` from your Git history, you can use an interactive rebase. This will allow you to drop the specific commits and keep the rest of your changes intact. Here's how to do it:
+
+### Step 1: Start Interactive Rebase
+You want to start the rebase from at least one commit before the first commit you wish to remove. Since you want to remove commits that are quite recent, you can start from just before these commits:
+
+```bash
+git rebase -i 27df36fb30eabfe520bbab89b5f01d26c7943b4e^
+```
+
+### Step 2: Update the Rebase List
+Your text editor will open with a list of commits starting from the commit you specified. You will see something like this:
+
+```
+pick 27df36fb add video processing code & Gemini 1.5 refer
+pick 3a7c60d5 delete openai key
+pick 7c07c673 delete OPENAI KEY
+```
+
+In the editor, you want to remove the lines for commits `3a7c60d5` and `7c07c673`. Simply delete those lines. It should look like this:
+
+```
+pick 27df36fb add video processing code & Gemini 1.5 refer
+```
+
+### Step 3: Save and Exit
+Save the changes and close the editor. Git will then reapply the remaining commits as per the new instructions.
+
+### Step 4: Handle Any Conflicts
+If there are conflicts during the rebase, Git will stop and allow you to fix them. Once resolved, you can continue the rebase:
+
+```bash
+git add .
+git rebase --continue
+```
+
+Repeat this as necessary until the rebase completes.
+
+### Step 5: Force Push the Changes
+Since you have altered the history, you will need to force push your changes to the remote repository:
+
+```bash
+git push origin main --force
+```
+
+This command will update the remote branch with your local changes, effectively removing the specified commits from the remote history.
+
+Make sure you communicate with your team (if you are working in a collaborative environment) that you have rewritten the history, as this will require them to sync their local branches with the remote branch after your changes.
