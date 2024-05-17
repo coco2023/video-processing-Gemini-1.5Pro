@@ -3,3 +3,5 @@ bin/
 outputs/
 secret/
 .env
+myenv/
+train-models/myenv/
