@@ -17,7 +17,7 @@ public class ExtractAndSaveToJson {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/youtube_data";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "12345";
-    private static final String OUTPUT_JSON_FILE = "all_transcriptionsV2.json";
+    private static final String OUTPUT_JSON_FILE = "train/transcriptions.json";
 
     public static void main(String[] args) {
         // Load the MySQL JDBC driver

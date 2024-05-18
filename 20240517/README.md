@@ -8,7 +8,7 @@
 2. code path: [**Java + Python**](./aristAI/)
 
 ## Gemini Model Training
-1. code Path: [**Colab**](https://colab.research.google.com/drive/1RnmL32MBv7s5ysyUOeBqlHvgM4JnAwwu?usp=sharing)
+1. code Path: [**Colab**](https://colab.research.google.com/drive/1s9ir8S1XLxEcuP1-E4DOyxgNEp-zQNLH?usp=sharing)
 
 # Refer
 1. https://chatgpt.com/g/g-WKIaLGGem-tech-support-advisor/c/4b5adde7-e7b9-4eac-aa5d-32db9ca6fdc5
@@ -35,6 +35,8 @@ code: [Pyhton: Apollo 11 transcript](./aristAI/train-models/)
 17. Prompting with media files: https://ai.google.dev/gemini-api/docs/prompting_with_media?lang=python
 18. Custom training overview : https://cloud.google.com/vertex-ai/docs/training/overview
 19. Usage: https://cloud.google.com/bigquery?hl=en#data-warehouse-migration
+20. https://colab.research.google.com/github/GoogleCloudPlatform/generative-ai/blob/main/gemini/getting-started/intro_gemini_1_5_pro.ipynb#scrollTo=lslYAvw37JGQ
+21. https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/getting-started/intro_gemini_1_5_pro.ipynb
 
 # sequence diagram of Video Processing
 refer: https://chatgpt.com/g/g-5QhhdsfDj-diagrams-show-me-charts-presentations-code/c/ee1353ef-ddab-44c6-bb0d-2cb6dc99e1e0
