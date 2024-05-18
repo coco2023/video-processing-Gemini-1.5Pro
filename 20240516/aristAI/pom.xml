@@ -103,8 +103,46 @@
             <version>8.0.28</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-vertexai</artifactId>
+        </dependency>
+        <!-- Google Auth Library dependency -->
+        <dependency>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-oauth2-http</artifactId>
+            <version>1.10.0</version> <!-- Use the latest version -->
+        </dependency>        
+        <!-- Additional dependencies -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.14</version>
+        </dependency>
+  
     </dependencies>
-
+    <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>libraries-bom</artifactId>
+            <version>26.32.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      
     <build>
         <sourceDirectory>${project.basedir}</sourceDirectory>
         <plugins>
@@ -124,7 +162,13 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.example.ExtractAndSaveToJson</mainClass>
+                    <mainClass>com.example.TextInput</mainClass>
+                    <!-- <systemProperties>
+                        <systemProperty>
+                          <key>GOOGLE_APPLICATION_CREDENTIALS</key>
+                          <value>D:\Application\WorkApp\Google CLI\application_default_credentials.json</value>
+                        </systemProperty>
+                    </systemProperties>               -->
                 </configuration>
             </plugin>
         </plugins>

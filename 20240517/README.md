@@ -37,6 +37,10 @@ code: [Pyhton: Apollo 11 transcript](./aristAI/train-models/)
 19. Usage: https://cloud.google.com/bigquery?hl=en#data-warehouse-migration
 20. https://colab.research.google.com/github/GoogleCloudPlatform/generative-ai/blob/main/gemini/getting-started/intro_gemini_1_5_pro.ipynb#scrollTo=lslYAvw37JGQ
 21. https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/getting-started/intro_gemini_1_5_pro.ipynb
+22. https://www.googlecloudcommunity.com/gc/AI-ML/Problem-calling-Gemini-API-from-Java-application/m-p/738594
+23. https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai
+24. https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/overview
+25. https://docs.spring.io/spring-ai/reference/api/clients/vertexai-gemini-chat.html
 
 # sequence diagram of Video Processing
 refer: https://chatgpt.com/g/g-5QhhdsfDj-diagrams-show-me-charts-presentations-code/c/ee1353ef-ddab-44c6-bb0d-2cb6dc99e1e0
