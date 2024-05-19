@@ -10,50 +10,77 @@ import org.bytedeco.ffmpeg.avutil.AVRational;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.FFmpegLogCallback;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.management.RuntimeErrorException;
 
 public class VideoSplitter {
 
     public static String filePath = "outputs/";
+    public static String outputPath = "outputs/mp4split/";
 
     public static void main(String[] args) {
         String infoString = "1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#1#00:00:42.500#00:00:57.100";
+
+        List<String> videoNameLists = new ArrayList<>();
+        videoNameLists.add("epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0#00:00:09.400#00:00:58.800");
+        videoNameLists.add("epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#1#00:00:00.000#00:00:24.900");
+        videoNameLists.add("epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#1#00:00:26.100#00:00:59.000");
+        videoNameLists.add("epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#7#00:00:00.000#00:00:28.900");
+        videoNameLists.add("epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#7#00:00:30.300#00:00:58.900");
+        videoNameLists.add("epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#8#00:00:00.000#00:00:19.800");
+        
         try {
-            parseAndSplitVideo(infoString);
+            for (String videName : videoNameLists) {
+                parseAndSplitVideo(videName);
+            }            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void parseAndSplitVideo(String infoString) throws IOException, InterruptedException {
-        String[] parts = infoString.split("#");
+    public static void parseAndSplitVideo(String videoNameString) throws IOException, InterruptedException {
+        String[] parts = videoNameString.split("#");
         String videoName = parts[0];
         String videoId = parts[1];
+        String playList = parts[2];
+        String segmentNum = parts[4];
         String startTime = parts[5];
         String endTime = parts[6];
-        String outputName = videoName + "_segment.mp4";
+
+        String mp4VideName = videoName + "#" + videoId + "#" + playList;
+
+        // convert time format: need to add previous time based on segment number
+        double previousTime = Double.valueOf(segmentNum) * 59;
+        double startSeconds = timeStringToSeconds(startTime) + previousTime;
+        double endSeconds = timeStringToSeconds(endTime) + previousTime;
+        String outputName = videoName + "#" + startSeconds + "#" + endSeconds + "#segment";
 
         try { 
-            splitVideo(videoName, startTime, endTime, outputName);   
+            splitVideo(mp4VideName, segmentNum, startSeconds, endSeconds, outputName);   
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void splitVideo(String videoName, String startTime, String endTime, String outputName) throws Exception {
-        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(filePath + videoName + ".mp4");
+    public static void splitVideo(String mp4VideName, String segmentNum, double startSeconds, double endSeconds, String outputName) throws Exception {
+        FFmpegLogCallback.set();
+        
+        makeDir(filePath);
+        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(filePath + mp4VideName + ".mp4");
         grabber.start();
 
-        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(filePath + outputName, grabber.getImageWidth(), grabber.getImageHeight(), grabber.getAudioChannels());
+        makeDir(outputPath);
+        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputPath + outputName + ".mp4", grabber.getImageWidth(), grabber.getImageHeight(), grabber.getAudioChannels());
         recorder.setFormat("mp4");
         recorder.setFrameRate(grabber.getFrameRate());
         recorder.start();
-
-        double startSeconds = timeStringToSeconds(startTime);
-        double endSeconds = timeStringToSeconds(endTime);
 
         grabber.setTimestamp((long) (startSeconds * 1000000));
         Frame frame;
@@ -75,5 +102,10 @@ public class VideoSplitter {
         double minutes = Double.parseDouble(parts[1]);
         double seconds = Double.parseDouble(parts[2]);
         return hours * 3600 + minutes * 60 + seconds;
+    }
+
+    public static void makeDir(String filePathName) {
+        File folder = new File(filePathName);
+        if (!folder.exists()) folder.mkdirs();
     }
 }

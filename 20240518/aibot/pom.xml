@@ -203,7 +203,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.example.Chatbot</mainClass>
+                    <mainClass>com.example.VideoSplitter</mainClass>
                 </configuration>
             </plugin>
         </plugins>
