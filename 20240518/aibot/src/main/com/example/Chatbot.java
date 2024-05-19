@@ -17,12 +17,12 @@ import java.util.*;
 public class Chatbot {
 
           public static void main(String[] args) throws IOException {
-                    if (args.length == 0) {
-                        System.out.println("Please provide a question as an argument.");
-                        return;
-                    }
+                    // if (args.length == 0) {
+                    //     System.out.println("Please provide a question as an argument.");
+                    //     return;
+                    // }
             
-                    String question = args[0];
+                    // String question = args[0];
 
                     // TODO(developer): Replace these variables before running the sample.
                     String projectId = "delta-coil-423603-j2";
@@ -30,21 +30,29 @@ public class Chatbot {
                     String modelName = "gemini-1.5-pro-preview-0409"; // gemini-1.5-pro-preview-0409 //
                                                                       // gemini-1.0-pro-002
                     String filePath = "train/transcriptions.txt";
-                    String defaultReply = " please Return the referred sentence in origin data in a list format and begin with the name: referList.";
+                    // String defaultReply = " please Return the referred informatoion from origin data you used to generate the answer. the return should be in a list format which begin with the prefix: referList=";
+                    // String defaultReply = "You must: 1. Return the referred sentence from the original data; 2. Return the original sentence in a list format named `referList`. 3. The `referList` should have a prefix: `referList=`";
+                    String defaultReply = "1. the origin text format is sentenceId|sentence. 2. You MUST return ALL the referred sentences you use to generate the answer based on the original speech text data. The referred sentences should be return in a list format named referList, prefixed with `referList` 3. you should also return the sentenceId in the list format of the referList, named idList";
                     String textPrompt = readFromTxt(filePath);
-                    // String question = "what does the txt tell us? ";
-                    String output = textInput(projectId, location, modelName, question + textPrompt);
+                    String question = "what does the speech text tell us? ";
+                    String output = textInput(projectId, location, modelName, question + defaultReply + textPrompt);
                     // System.out.println("this is the answer: " + output);
 
                     // process output
-                    List<String> referList = FindSentences.extractReferList(output);   
-                    System.out.println(referList);                
-                    // match transcript
-                    List<String> resultKey = FindSentences.matchTranscript(referList);
-                    System.out.println(resultKey);
-                    // extract the video info
-                    List<com.example.FindSentences.KeyComponents> videoInfo = FindSentences.extraKeyComponents(resultKey);
-                    videoInfo.forEach((n) -> System.out.println(n));
+                    List<List<String>> result = AnswerUtil.extractAllLists(output);
+                    System.out.println("Extracted Lists:");
+                    for (List<String>  list : result) {
+                        System.out.println(list);
+                    }
+
+                    // List<String> referList = FindSentences.extractReferList(output);   
+                    // System.out.println(referList);                
+                    // // match transcript
+                    // List<String> resultKey = FindSentences.matchTranscript(referList);
+                    // System.out.println(resultKey);
+                    // // extract the video info
+                    // List<com.example.FindSentences.KeyComponents> videoInfo = FindSentences.extraKeyComponents(resultKey);
+                    // videoInfo.forEach((n) -> System.out.println(n));
           }
 
           // Passes the provided text input to the Gemini model and returns the text-only
