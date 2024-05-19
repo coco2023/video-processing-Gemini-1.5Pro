@@ -30,10 +30,10 @@ public class Chatbot {
                     String modelName = "gemini-1.5-pro-preview-0409"; // gemini-1.5-pro-preview-0409 //
                                                                       // gemini-1.0-pro-002
                     String filePath = "train/transcriptions.txt";
-                    String defaultReply = " Return the referred sentence/info of origin data in a list named: referList.";
+                    String defaultReply = " please Return the referred sentence in origin data in a list format and begin with the name: referList.";
                     String textPrompt = readFromTxt(filePath);
                     // String question = "what does the txt tell us? ";
-                    String output = textInput(projectId, location, modelName, question + textPrompt + defaultReply);
+                    String output = textInput(projectId, location, modelName, question + textPrompt);
                     // System.out.println("this is the answer: " + output);
 
                     // process output

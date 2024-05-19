@@ -142,12 +142,6 @@
             <artifactId>httpmime</artifactId>
             <version>4.5.13</version>
         </dependency>
-        <!-- converter Youtube mp4 format -->
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.5.10</version>
-        </dependency>
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-speech</artifactId>
@@ -209,7 +203,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.example.Frontend</mainClass>
+                    <mainClass>com.example.VideoMerger</mainClass>
                 </configuration>
             </plugin>
         </plugins>
