@@ -25,9 +25,13 @@ public class FileUtil {
         return new JSONObject(jsonContent);
     }
 
-    public static void makeDir(String filePathName) {
-        File folder = new File(filePathName);
-        if (!folder.exists()) folder.mkdirs();
+    public static String readFromTxt(String filePath) throws IOException {
+        return FileUtil.readFileAsString(filePath);
     }
 
+    public static void makeDir(String filePathName) {
+        File folder = new File(filePathName);
+        if (!folder.exists())
+            folder.mkdirs();
+    }
 }

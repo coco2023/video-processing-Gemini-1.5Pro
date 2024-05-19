@@ -21,6 +21,43 @@ https://www.baeldung.com/java-langchain-basics#3-retrieval
 11. Vertex AI console: https://console.cloud.google.com/vertex-ai/generative/multimodal/create/text?_ga=2.139574523.915233943.1715962077-1579003205.1715900527&_gac=1.79971813.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE&project=delta-coil-423603-j2
 
 # Answer
+## answer 4
+```
+[1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0#00:00:09.700#00:00:25.500|let me let me Begin by thanking the staff for the board, ve done to prepare for today, 1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#2#00:00:23.500#00:00:46.700|our objective in organizing the series was to gather information that we and others can use to help develop policies that will support the flow of loans to credit where these small businesses for instance by identifying and addressing specific credit Caps or impediments to lending or improving access to small businesses to critical support services such as assistance in filing loan applications, 1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#3#00:00:04.000#00:00:23.100|before we get to the next steps however I would like to provide context by briefly discussing the importance of small businesses to job creation and the economic recovery reviewing the actions the Federal Reserve has taken the support small business financing and offering some observations about what we heard during the spa business meeting series, 1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#5#00:00:08.400#00:00:14.300|these efforts importantly have included working to facilitate the flow of credit to viable small businesses, 1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#5#00:00:15.500#00:00:24.300|at the Federal Reserve we helped bring capital from the Securities markets to small business to the term asset-backed Securities loan facility the towels program]
+```
+## answer 3
+This speech discusses the importance of small businesses, particularly minority-owned ones, to job creation and the economic recovery. It highlights the challenges these businesses face in accessing credit, exacerbated by the recent recession. The speaker emphasizes the Federal Reserve's commitment to supporting small businesses through research, outreach programs, and collaboration with other agencies and organizations. They also mention the need for better data and analysis to understand and address the credit needs of small businesses.
+
+`referList`: [
+"let me let me Begin by thanking the staff for the board's division of consumer and Community Affairs especially two divisions director send bronstein for the hard work they've done to prepare for today's discussion about approving access to credit for Sound small businesses",
+"small businesses are essential to creating jobs in our economy they employ roughly one half of all Americans and accounts for about 60% of gross job creation",
+"clearly do to support the recovery we need to find ways to ensure the credit-worthy borrowers have access to needed loans",
+"over the past two years the Federal Reserve and other agencies have made a concerted effort to stabilize our financial system in our economy",
+"these efforts importantly have included working to facilitate the flow of credit to viable small businesses",
+"I want to thank all of you for participating in the discussion today about the financing needs of small business quickly want to thank Karen Mills the SBA administrator for her remarks and our distinguished analyst for helping us better understand the Dynamics of small business lending in difficult Economic Times I'd also like to thank everyone who participated in the more than 40 Regional meetings that led up to today's conference and I think the reserve bank's for their sponsorship and coordination and organization of these meetings they brought together small businesses lenders technical assistance providers Bank examiners and others involved in small business credit to help identify barriers to small business credit access and just suggest potential Solutions as many of you know I come to the Federal Reserve after many years is a community Banker quite a number of those years were spent lending just",
+"that experience gives me a deeper appreciation for the importance of credit to economic growth and the particular importance of small business lending to job creation and local communities as you might imagine the recent recent decline in the availability of credit to small businesses concerns me it is also it also concerns my colleagues across the Federal Reserve System",
+"today's meeting has been referred to as a Capstone because it's summarize the information that we gathered but our conversation today makes it clear that this is just the beginning there's no single step that can be taken to cure what's ailing the business lending Market knows we've heard the causes for credit tightening or many",
+"going to fold a and I want a menu for your stamina for your insights your commitment to helping us identify the next staff that all of us probably policymakers small business lenders nonprofits and small business owners can take to facilitate small businesses access to credit hope we can also count on each of you to continue the effort because it's going to take all of us working together to fully restore a healthy credit environment for the small businesses that are so important to our economy as we take as we think about taking the next episode of like to especially note the success of the Federal Reserve small business meeting Series in fostering collaboration among numerous federal agencies including the other Financial Regulatory Agencies the treasury cdfi",
+"finding solutions to small business financing issues is not only an important component of the economic recovery it's also important for the restoration of communities that have been hard-hit by foreclosures in job losses what we've accomplished is a good beginning we've identified some specific credit gas and generated some ideas to tackle them we brought together a network of people with different perspectives and resources but a shared commitment to improving credit conditions and we sparked numerous research projects to further our understanding of the current and ongoing credit needs a small businesses if we continue to work together I'm sure that we can alleviate some of the problems that small businesses face the more we do now the better prepared our small businesses and lending institutions will be when economic growth and consumer demand pick up so thank you again for your participation today and your continued participation in the future",   
+"much of our Outreach at the Federal Reserve has focused on the needs of small minority small businesses why all small businesses are vulnerable to economic downturns the recession has hit minority small business is particularly hard at our meetings we heard a number of comment citing a comparative lack of capitalization week or collateral values and lower credit scores from any minority small businesses which leads these forms with less ability to absorb economic shocks for a Los Angeles we heard that the decline in residential property values has had a significant adverse impact on businesses owned by Asian Pacific Islanders",
+"finally spend some time today discussing the need for better data and Analysis"
+]
+
+`idList`: [
+'1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0#00:00:09.700#00:00:25.500',
+'1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#3#00:00:25.000#00:00:34.700',
+'1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#4#00:00:50.000#00:00:57.400',
+'1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#5#00:00:00.500#00:00:07.200',
+'1ESOfxO78B8#9#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#5#00:00:08.400#00:00:14.300',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#0#00:00:09.400#00:00:58.800',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#1#00:00:00.000#00:00:24.900',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#2#00:00:00.000#00:00:58.900',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#3#00:00:00.000#00:00:59.000',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#11#00:00:23.800#00:00:58.500',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#12#00:00:36.400#00:00:58.200',
+'epYOKjcEsz8#3#PL_oohi_O51Z_lORk8SCG_4x1smii5ky7f#segment#13#00:00:00.000#00:00:51.800'
+]
+
 ## answer 1
 this is the answer: The speech text tells us that the Federal Reserve is committed to supporting small businesses by conducting research and outreach programs to help small business owners access financing and technical assistance. The Federal Reserve also encourages bank examiners to adopt a balanced approach to reviewing bank lending to small businesses.
 
@@ -132,3 +169,48 @@ this is the answer: The text provides information from four different events:
 # Freq Error
 [ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.0.0:java (default-cli) on project youtube-playlist-scraper: An exception occured while executing the Java class. The response is blocked due to unauthorized citations. -> [Help 1]
 [ERROR]
+
+## Error log2: java.lang.IllegalThreadStateException
+**Solution:**
+> mvn clean install -T 4
+
+```
+java.lang.IllegalThreadStateException
+    at java.lang.ThreadGroup.destroy (ThreadGroup.java:776)
+    at org.codehaus.mojo.exec.ExecJavaMojo.execute (ExecJavaMojo.java:293)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 (MojoExecutor.java:370)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute (MojoExecutor.java:351)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:215)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:171)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:163)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)      
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:294)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:960)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:293)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:196)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:566)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:282)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:225)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:406)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:347)
+```
+
+## Error log3: java.lang.IllegalArgumentException: The response is blocked due to unauthorized citations
+```
+java.lang.IllegalArgumentException: The response is blocked due to unauthorized citations.
+    at com.google.cloud.vertexai.generativeai.ResponseHandler.checkFinishReason (ResponseHandler.java:189)
+    at com.google.cloud.vertexai.generativeai.ResponseHandler.getText (ResponseHandler.java:46)
+    at com.example.Chatbot.textInput (Chatbot.java:97)
+    at com.example.Chatbot.main (Chatbot.java:36)
+    at org.codehaus.mojo.exec.ExecJavaMojo$1.run (ExecJavaMojo.java:254)
+    at java.lang.Thread.run (Thread.java:829)
+```
