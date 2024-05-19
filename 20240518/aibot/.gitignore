@@ -1,6 +1,5 @@
 target/
 bin/
-outputs/videos/
-outputs/secret/
+outputs/
 .env
 myenv/

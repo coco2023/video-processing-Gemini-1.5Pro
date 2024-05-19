@@ -17,3 +17,9 @@ https://www.baeldung.com/java-langchain-basics#3-retrieval
 7. Java Generatiiveai: https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/com.google.cloud.vertexai.generativeai
 8. Java Generatiiveai Github: https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai/google-cloud-vertexai/src/main/java/com/google/cloud/vertexai/generativeai
 9. google-cloud-vertexai Java Github: https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai
+10. SafeSettings: https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/configure-safety-attributes#gemini-TASK-samples-java
+11. Vertex AI console: https://console.cloud.google.com/vertex-ai/generative/multimodal/create/text?_ga=2.139574523.915233943.1715962077-1579003205.1715900527&_gac=1.79971813.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE&project=delta-coil-423603-j2
+
+# Freq Error
+[ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.0.0:java (default-cli) on project youtube-playlist-scraper: An exception occured while executing the Java class. The response is blocked due to unauthorized citations. -> [Help 1]
+[ERROR]

@@ -7,7 +7,7 @@ import com.google.cloud.vertexai.generativeai.GenerativeModel;
 import com.google.cloud.vertexai.generativeai.PartMaker;
 import java.io.IOException;
 
-public class Quickstart {
+public class ImageInput {
 
           public static void main(String[] args) throws IOException {
                     // TODO(developer): Replace these variables before running the sample.
