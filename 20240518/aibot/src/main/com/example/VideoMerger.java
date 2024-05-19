@@ -33,11 +33,11 @@ public class VideoMerger {
     public static List<String> getMp4Files(String directoryPath) throws IOException {
         try (Stream<Path> paths = Files.walk(Paths.get(directoryPath))) {
             return paths
-                    .filter(Files::isRegularFile)        // Filter to include only files
-                    .map(Path::getFileName)              // Convert Path to FileName
-                    .map(Path::toString)                 // Convert FileName to String
+                    .filter(Files::isRegularFile) // Filter to include only files
+                    .map(Path::getFileName) // Convert Path to FileName
+                    .map(Path::toString) // Convert FileName to String
                     .filter(filename -> filename.endsWith(".mp4")) // Filter to include only .mp4 files
-                    .collect(Collectors.toList());       // Collect as a List
+                    .collect(Collectors.toList()); // Collect as a List
         }
     }
 
@@ -50,7 +50,8 @@ public class VideoMerger {
                 grabber.start();
 
                 if (recorder == null) {
-                    recorder = new FFmpegFrameRecorder(outputFile, grabber.getImageWidth(), grabber.getImageHeight(), grabber.getAudioChannels());
+                    recorder = new FFmpegFrameRecorder(outputFile, grabber.getImageWidth(), grabber.getImageHeight(),
+                            grabber.getAudioChannels());
                     recorder.setFormat("mp4");
                     recorder.setFrameRate(grabber.getFrameRate());
                     recorder.start();

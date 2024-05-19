@@ -3,6 +3,7 @@ package com.example;
 import com.example.AnswerUtil;
 import com.example.FileUtil;
 import com.example.FindSentences;
+import com.example.VideoMerger;
 import com.example.VideoSplitter;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.vertexai.VertexAI;
@@ -20,12 +21,12 @@ import java.util.*;
 public class Chatbot {
 
         public static void main(String[] args) throws IOException {
-                // if (args.length == 0) {
-                // System.out.println("Please provide a question as an argument.");
-                // return;
-                // }
+                if (args.length == 0) {
+                        System.out.println("Please provide a question as an argument.");
+                        return;
+                }
 
-                // String question = args[0];
+                String question = args[0];
 
                 String projectId = "delta-coil-423603-j2";
                 String location = "us-central1";
@@ -34,17 +35,22 @@ public class Chatbot {
                 String filePath = "train/transcriptions.txt";
                 String defaultReply = "1. the speech text data format is sentenceId|sentence. 2. You MUST return ALL the referred sentences you used to generate the answer based on the original speech text data. The referred sentences should be return in a list format named referList, prefixed with `referList` 3. you should also return the sentenceId in the list format of the referList, named idList";
                 String textPrompt = FileUtil.readFromTxt(filePath);
-                String question = "what does the speech text tell us? ";
+                // String question = "what does the speech text tell us? ";
                 String output = textInput(projectId, location, modelName, question + defaultReply + textPrompt);
-                // System.out.println("this is the answer: " + output);
 
                 // process output
                 List<List<String>> result = AnswerUtil.extractAllLists(output);
-                System.out.println("Extracted Lists:" + result.isEmpty());
-                for (List<String> list : result) {
-                        List<String> resultList = AnswerUtil.extractSentenceIds(list);
-                        System.out.println(resultList);
-                }
+
+                // deal with the video
+                int length = result.size();
+                System.out.println(result.get(length - 1));
+
+                // split mp4
+                VideoSplitter.beginSplitVideo(result.get(length - 1));
+
+                // merge the split videos
+                VideoMerger.main(new String[] {});
+
                 System.out.println("finish!");
         }
 
@@ -66,10 +72,10 @@ public class Chatbot {
                                         .build();
 
                         List<SafetySetting> safetySettings = Arrays.asList(
-                                        SafetySetting.newBuilder()
-                                                        .setCategory(HarmCategory.HARM_CATEGORY_HATE_SPEECH)
-                                                        .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)
-                                                        .build(),
+                                        // SafetySetting.newBuilder()
+                                        // .setCategory(HarmCategory.HARM_CATEGORY_HATE_SPEECH)
+                                        // .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)
+                                        // .build(),
                                         SafetySetting.newBuilder()
                                                         .setCategory(HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT)
                                                         .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)

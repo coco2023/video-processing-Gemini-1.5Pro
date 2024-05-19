@@ -19,7 +19,7 @@ public class AnswerUtil {
             String content = matcher.group(1).trim();
             System.out.println("content: " + content);
             List<String> subList = extractItems(content);
-            allLists.add(subList);
+            allLists.add(extractSentenceIds(subList));
         }
         System.out.println("content is Empty? " + allLists.isEmpty());
 
@@ -38,8 +38,10 @@ public class AnswerUtil {
         while (itemMatcher.find()) {
             if (itemMatcher.group(1) != null) {
                 itemsList.add(itemMatcher.group(1).trim());
+                // itemsList.add(extractSentenceIds(itemMatcher.group(1).trim()));
             } else if (itemMatcher.group(2) != null) {
                 itemsList.add(itemMatcher.group(2).trim());
+                // itemsList.add(extractSentenceIds(itemMatcher.group(2).trim()));
             }
         }
 
