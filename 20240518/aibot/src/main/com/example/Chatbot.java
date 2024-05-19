@@ -17,6 +17,13 @@ import java.util.*;
 public class Chatbot {
 
           public static void main(String[] args) throws IOException {
+                    if (args.length == 0) {
+                        System.out.println("Please provide a question as an argument.");
+                        return;
+                    }
+            
+                    String question = args[0];
+
                     // TODO(developer): Replace these variables before running the sample.
                     String projectId = "delta-coil-423603-j2";
                     String location = "us-central1";
@@ -25,7 +32,7 @@ public class Chatbot {
                     String filePath = "train/transcriptions.txt";
                     String defaultReply = " Return the referred sentence/info of origin data in a list named: referList.";
                     String textPrompt = readFromTxt(filePath);
-                    String question = "what does the txt tell us? ";
+                    // String question = "what does the txt tell us? ";
                     String output = textInput(projectId, location, modelName, question + textPrompt + defaultReply);
                     // System.out.println("this is the answer: " + output);
 
