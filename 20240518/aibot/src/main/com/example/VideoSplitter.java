@@ -10,6 +10,10 @@ import org.bytedeco.ffmpeg.avutil.AVRational;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
+
+import com.example.MP4ToWAVConverter;
+import com.example.VideoMerger;
+
 import org.bytedeco.javacv.FFmpegLogCallback;
 
 import java.io.File;
@@ -22,7 +26,7 @@ import javax.management.RuntimeErrorException;
 
 public class VideoSplitter {
 
-    public static String filePath = "outputs/";
+    public static String filePath = "outputs/videos/mp4/";
     public static String outputPath = "outputs/mp4split/";
 
     public static void main(String[] args) {
@@ -63,7 +67,10 @@ public class VideoSplitter {
         String outputName = videoName + "#" + startSeconds + "#" + endSeconds + "#segment";
 
         try { 
-            splitVideo(mp4VideName, segmentNum, startSeconds, endSeconds, outputName);   
+            splitVideo(mp4VideName, segmentNum, startSeconds, endSeconds, outputName);
+
+            // call video merger to merge the split videos
+            VideoMerger.main(new String[]{});
         } catch (Exception e) {
             e.printStackTrace();
         }

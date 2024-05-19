@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,4 +24,10 @@ public class FileUtil {
         String jsonContent = new String(Files.readAllBytes(Paths.get(filePath)));
         return new JSONObject(jsonContent);
     }
+
+    public static void makeDir(String filePathName) {
+        File folder = new File(filePathName);
+        if (!folder.exists()) folder.mkdirs();
+    }
+
 }
