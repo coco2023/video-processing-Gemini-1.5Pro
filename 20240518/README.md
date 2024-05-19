@@ -7,7 +7,10 @@ The project aims to:
 5. provide a UI for user's interaction & video's play
 
 Please check code here: [[20240518/aibot](./aibot/)]
+
 ![](workflow.jpg)
+
+![](chatUI.png)
 
 Please Check the Youtube here: [Youtube](https://www.youtube.com/watch?v=5UdBdVmkLuE&list=PLKJC3aN3a3EX_l5SXmpXMrILU4PlDnCyL)
 

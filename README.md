@@ -10,6 +10,8 @@ Please check code here: [[20240518/aibot](https://github.com/coco2023/videos-pro
 
 ![](workflow.jpg)
 
+![](chatUI.png)
+
 Please Check the Youtube here: [Youtube](https://www.youtube.com/watch?v=5UdBdVmkLuE&list=PLKJC3aN3a3EX_l5SXmpXMrILU4PlDnCyL)
 
 ## How to Run
