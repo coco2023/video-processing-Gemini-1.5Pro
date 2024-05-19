@@ -1,24 +1,45 @@
+# Video Processing Chatbot Workflow
+The project aims to:
+1. scrap & download the youtube videos from the playlist based on the user's url input
+2. process the mp4 video into wav and uplaod to google cloud
+3. using Gemini 1.5 Pro to answer the user's input questions
+4. process the videos based on the chatbot's answer and provide the merged videos
+5. provide a UI for user's interaction & video's play
+
+Please check code here: [[20240518/aibot](./aibot/)]
+![](workflow.jpg)
+
+Please Check the Youtube here: [Youtube](https://www.youtube.com/watch?v=5UdBdVmkLuE&list=PLKJC3aN3a3EX_l5SXmpXMrILU4PlDnCyL)
+
+## How to Run
+1. login: https://cloud.google.com/vertex-ai/docs/start/cloud-environment?_gl=1*140nv1z*_ga*MTU3OTAwMzIwNS4xNzE1OTAwNTI3*_ga_WH2QY8WWF5*MTcxNjA0NzkyNi41LjEuMTcxNjA0ODU2MC4wLjAuMA..&_ga=2.162627196.-1579003205.1715900527&_gac=1.79751653.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE
+> gcloud auth login --no-browser
+> gcloud init
+
+2. run project
+> mvn clean install
+> mvn javafx:run
+> or
+> mvn exec:java
+
+# Refer
 1. Retrieval Augmented Generation (RAG):
 https://www.baeldung.com/java-langchain-basics#3-retrieval
 
 2. google vertex ai gemini: https://github.com/GoogleCloudPlatform/java-docs-samples/tree/main/vertexai/snippets/src/main/java/vertexai/gemini
 3. https://www.baeldung.com/java-langchain-basics
 4. https://cloud.google.com/java/getting-started
-
-# Process
-1. login: https://cloud.google.com/vertex-ai/docs/start/cloud-environment?_gl=1*140nv1z*_ga*MTU3OTAwMzIwNS4xNzE1OTAwNTI3*_ga_WH2QY8WWF5*MTcxNjA0NzkyNi41LjEuMTcxNjA0ODU2MC4wLjAuMA..&_ga=2.162627196.-1579003205.1715900527&_gac=1.79751653.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE
-> gcloud init
-
-2. https://cloud.google.com/sdk/docs/install
-3. https://cloud.google.com/vertex-ai/docs/start/client-libraries
-4. Official Doc(Java): https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#gemini-setup-environment-java
-5. google-cloud-vertexai overview (1.3.0): https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/overview
-6. Overview of the Gemini API in Vertex AI: https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/overview
-7. Java Generatiiveai: https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/com.google.cloud.vertexai.generativeai
-8. Java Generatiiveai Github: https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai/google-cloud-vertexai/src/main/java/com/google/cloud/vertexai/generativeai
-9. google-cloud-vertexai Java Github: https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai
-10. SafeSettings: https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/configure-safety-attributes#gemini-TASK-samples-java
-11. Vertex AI console: https://console.cloud.google.com/vertex-ai/generative/multimodal/create/text?_ga=2.139574523.915233943.1715962077-1579003205.1715900527&_gac=1.79971813.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE&project=delta-coil-423603-j2
+   
+5. https://cloud.google.com/sdk/docs/install
+6. https://cloud.google.com/vertex-ai/docs/start/client-libraries
+7. Official Doc(Java): https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#gemini-setup-environment-java
+8. google-cloud-vertexai overview (1.3.0): https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/overview
+9.  Overview of the Gemini API in Vertex AI: https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/overview
+10. Java Generatiiveai: https://cloud.google.com/vertex-ai/generative-ai/docs/reference/java/latest/com.google.cloud.vertexai.generativeai
+11. Java Generatiiveai Github: https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai/google-cloud-vertexai/src/main/java/com/google/cloud/vertexai/generativeai
+12. google-cloud-vertexai Java Github: https://github.com/googleapis/google-cloud-java/tree/main/java-vertexai
+13. SafeSettings: https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/configure-safety-attributes#gemini-TASK-samples-java
+14. Vertex AI console: https://console.cloud.google.com/vertex-ai/generative/multimodal/create/text?_ga=2.139574523.915233943.1715962077-1579003205.1715900527&_gac=1.79971813.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE&project=delta-coil-423603-j2
 
 # Answer
 ## answer 4

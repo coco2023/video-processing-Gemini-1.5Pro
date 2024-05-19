@@ -25,7 +25,7 @@ public class Frontend extends JFrame {
 
     public Frontend() {
         setTitle("YouTube Playlist Scraper & Chatbot");
-        setSize(1000, 600); // Increased size for video display
+        setSize(1000, 800); // Increased size for video display
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -65,6 +65,7 @@ public class Frontend extends JFrame {
 
         // JFXPanel for video
         jfxPanel = new JFXPanel();
+        jfxPanel.setPreferredSize(new Dimension(800, 400)); // Ensure preferred size for video panel
 
         // Add components to the frame
         add(inputPanel, BorderLayout.NORTH);
@@ -84,6 +85,27 @@ public class Frontend extends JFrame {
         try {
             YouTubePlaylistScraper.main(new String[] { url });
             outputArea.append("YouTubePlaylistScraper completed.\n");
+
+            // // Run YouTubeVideoDownloader
+            // outputArea.append("Running YouTubeVideoDownloader...\n");
+            // YouTubeVideoDownloader.main(new String[] {});
+            // outputArea.append("YouTubeVideoDownloader completed.\n");
+
+            // // Run MP4ToWAVConverter
+            // outputArea.append("Running MP4ToWAVConverter...\n");
+            // MP4ToWAVConverter.main(new String[] {});
+            // outputArea.append("MP4ToWAVConverter completed.\n");
+
+            // // Run AudioSplitter
+            // outputArea.append("Running AudioSplitter...\n");
+            // AudioSplitter.main(new String[] {});
+            // outputArea.append("AudioSplitter completed.\n");
+
+            // // Run UploadToGCS
+            // outputArea.append("Running UploadToGCS...\n");
+            // UploadToGCS.main(new String[]{});
+            // outputArea.append("UploadToGCS completed.\n");
+
         } catch (Exception ex) {
             ex.printStackTrace();
             outputArea.append("An error occurred: " + ex.getMessage() + "\n");
@@ -117,17 +139,38 @@ public class Frontend extends JFrame {
 
     private void displayVideo(String videoPath) {
         Platform.runLater(() -> {
-            Media media = new Media(new File(videoPath).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            MediaView mediaView = new MediaView(mediaPlayer);
+            try {
+                File videoFile = new File(videoPath);
+                if (!videoFile.exists()) {
+                    outputArea.append("Video file not found: " + videoPath + "\n");
+                    return;
+                }
 
-            BorderPane borderPane = new BorderPane();
-            borderPane.setCenter(mediaView);
+                Media media = new Media(videoFile.toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                MediaView mediaView = new MediaView(mediaPlayer);
 
-            Scene scene = new Scene(borderPane, 800, 400);
-            jfxPanel.setScene(scene);
+                mediaView.setFitWidth(jfxPanel.getWidth());
+                mediaView.setFitHeight(jfxPanel.getHeight());
 
-            mediaPlayer.play();
+                BorderPane borderPane = new BorderPane();
+                borderPane.setCenter(mediaView);
+
+                Scene scene = new Scene(borderPane);
+                jfxPanel.setScene(scene);
+
+                mediaPlayer.setOnReady(() -> {
+                    outputArea.append("Video Duration: " + mediaPlayer.getTotalDuration().toMinutes() + " minutes\n");
+                    mediaPlayer.play();
+                });
+
+                mediaPlayer.setOnError(
+                        () -> outputArea.append("Error occurred: " + mediaPlayer.getError().getMessage() + "\n"));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                outputArea.append("Exception occurred while trying to play video: " + e.getMessage() + "\n");
+            }
         });
     }
 

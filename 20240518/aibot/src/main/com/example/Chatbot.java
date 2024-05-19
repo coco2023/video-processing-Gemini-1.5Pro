@@ -72,10 +72,10 @@ public class Chatbot {
                                         .build();
 
                         List<SafetySetting> safetySettings = Arrays.asList(
-                                        // SafetySetting.newBuilder()
-                                        // .setCategory(HarmCategory.HARM_CATEGORY_HATE_SPEECH)
-                                        // .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)
-                                        // .build(),
+                                        SafetySetting.newBuilder()
+                                                        .setCategory(HarmCategory.HARM_CATEGORY_HATE_SPEECH)
+                                                        .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)
+                                                        .build(),
                                         SafetySetting.newBuilder()
                                                         .setCategory(HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT)
                                                         .setThreshold(SafetySetting.HarmBlockThreshold.BLOCK_NONE)

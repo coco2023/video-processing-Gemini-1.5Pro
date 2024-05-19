@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class YouTubeVideoDownloader {
 
-    private static final String DOWNLOAD_DIRECTORY = "outputs/videos/";
+    private static final String DOWNLOAD_DIRECTORY = "outputs/videos/mp4/";
 
     public static void main(String[] args) {
         String jsonFilePath = "outputs/videoLinks.json";
@@ -67,7 +67,7 @@ public class YouTubeVideoDownloader {
 
     private static void logProcessOutput(Process process) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-             BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 
             String line;
             while ((line = reader.readLine()) != null) {

@@ -1,3 +1,28 @@
+# Video Processing Chatbot Workflow
+The project aims to:
+1. scrap & download the youtube videos from the playlist based on the user's url input
+2. process the mp4 video into wav and uplaod to google cloud
+3. using Gemini 1.5 Pro to answer the user's input questions
+4. process the videos based on the chatbot's answer and provide the merged videos
+5. provide a UI for user's interaction & video's play
+
+Please check code here: [[20240518/aibot](https://github.com/coco2023/videos-processing/tree/main/20240518)]
+
+![](workflow.jpg)
+
+Please Check the Youtube here: [Youtube](https://www.youtube.com/watch?v=5UdBdVmkLuE&list=PLKJC3aN3a3EX_l5SXmpXMrILU4PlDnCyL)
+
+## How to Run
+1. login: https://cloud.google.com/vertex-ai/docs/start/cloud-environment?_gl=1*140nv1z*_ga*MTU3OTAwMzIwNS4xNzE1OTAwNTI3*_ga_WH2QY8WWF5*MTcxNjA0NzkyNi41LjEuMTcxNjA0ODU2MC4wLjAuMA..&_ga=2.162627196.-1579003205.1715900527&_gac=1.79751653.1716047927.CjwKCAjwo6GyBhBwEiwAzQTmc2Vi09CCLGuiOM39CosBpnSeKzeaMHZoIs0FYuC_l025W2gBf8nW9BoCOMoQAvD_BwE
+> gcloud auth login --no-browser
+> gcloud init
+
+2. run project
+> mvn clean install
+> mvn javafx:run
+> or
+> mvn exec:java
+
 # Practice
 20240516: https://github.com/coco2023/videos-processing/tree/main/20240516
 Gemini Train prac: https://github.com/coco2023/videos-processing/blob/main/train.ipynb
