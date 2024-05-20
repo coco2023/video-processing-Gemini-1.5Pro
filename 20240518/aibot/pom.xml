@@ -180,6 +180,12 @@
             <artifactId>javafx-swing</artifactId>
             <version>11.0.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-credentials</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
